@@ -1,0 +1,496 @@
+/* Custom Properties (Variables) */
+:root {
+    /* Gradient Color Palette - Adjusted for a more vibrant, kid-friendly feel */
+    --gradient-1-start: #ff6f61; /* Bright Coral */
+    --gradient-1-end: #ffa82c; /* Sunny Orange */
+
+    --gradient-2-start: #81e6d9; /* Aqua Blue */
+    --gradient-2-end: #b8ffd2; /* Mint Green */
+
+    --gradient-3-start: #ff8ad8; /* Hot Pink */
+    --gradient-3-end: #af7aff; /* Electric Purple */
+
+    --text-color-dark: #2a2a2a; /* Slightly darker for better contrast on light backgrounds */
+    --text-color-light: #fff;
+
+    --font-heading: 'Dancing Script', cursive;
+    --font-body: 'Quicksand', sans-serif;
+    --font-decorative: 'Pacifico', cursive;
+    --transition-speed: 0.5s ease-in-out;
+}
+
+/* General Body Styling - Now with a more dynamic background gradient */
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--text-color-dark);
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
+    background: linear-gradient(135deg, var(--gradient-1-start), var(--gradient-1-end));
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+    /* Add subtle background animation */
+    background-size: 400% 400%; /* Larger background to animate movement */
+    animation: backgroundPan 15s ease infinite alternate; /* Pan effect */
+}
+
+/* New: Background Pan Animation */
+@keyframes backgroundPan {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+/* Page Transitions - Added a slight bounce for more flair */
+.page-transition {
+    animation: fadeInBounce 1s ease-in-out forwards;
+}
+
+@keyframes fadeInBounce {
+    0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+    80% { opacity: 1; transform: translateY(-5px) scale(1.02); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Page Exit Animation (Add this if you haven't already from script.js comments) */
+.page-exit {
+    animation: fadeOutShrink 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeOutShrink {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(-30px) scale(0.9); }
+}
+
+
+/* Container for Centering Content - Subtle rotate and scale */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    text-align: center;
+    position: relative;
+    z-index: 2; /* Above background animation */
+    box-sizing: border-box;
+    transform: scale(0.95) rotateY(10deg); /* Initial state for new animation */
+    opacity: 0;
+    animation: containerLoad 1s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes containerLoad {
+    to { transform: scale(1) rotateY(0deg); opacity: 1; }
+}
+
+/* Headings - Now with a gradient text effect */
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    /* Apply gradient to text */
+    background: linear-gradient(45deg, var(--gradient-1-start), var(--gradient-2-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback for browsers not supporting text clipping */
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+}
+
+h1 {
+    font-size: 3.8em; /* Slightly larger */
+    letter-spacing: 2px;
+}
+
+/* Buttons (Call to Action) - Gradient background and subtle hover pulse */
+.cta-button {
+    background: linear-gradient(90deg, var(--gradient-2-start), var(--gradient-3-start)); /* Using different gradients for vibrancy */
+    color: var(--text-color-light);
+    border: none;
+    padding: 18px 35px; /* Slightly larger padding */
+    font-size: 1.3em; /* Slightly larger font */
+    font-family: var(--font-decorative);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out; /* Longer transition */
+    margin-top: 40px; /* More margin */
+    letter-spacing: 2px; /* More spacing */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+    position: relative; /* For pulse effect */
+    overflow: hidden; /* For shine effect */
+}
+
+.cta-button:hover {
+    transform: translateY(-8px) scale(1.08); /* More pronounced lift and scale */
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+/* New: Button Shine Effect on Hover */
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-20deg);
+    transition: all 0.5s ease-in-out;
+}
+
+.cta-button:hover::before {
+    left: 125%;
+}
+
+
+/* --- Animations --- */
+
+/* Background Confetti Animation (for opening page) - More pieces and variations */
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none; /* Allows clicks through confetti */
+}
+
+/* Manual Confetti Pieces - For plain CSS, replace the SCSS loop */
+/* You need to add these divs to your `index.html` inside `<div class="background-animation"></div>` */
+/*
+<div class="confetti c1"></div>
+<div class="confetti c2"></div>
+<div class="confetti c3"></div>
+<div class="confetti c4"></div>
+<div class="confetti c5"></div>
+<div class="confetti c6"></div>
+<div class="confetti c7"></div>
+<div class="confetti c8"></div>
+<div class="confetti c9"></div>
+<div class="confetti c10"></div>
+<div class="confetti c11"></div>
+<div class="confetti c12"></div>
+<div class="confetti c13"></div>
+<div class="confetti c14"></div>
+<div class="confetti c15"></div>
+*/
+.confetti {
+    position: absolute;
+    opacity: 0;
+    animation: confettiFall 10s infinite linear forwards;
+    transform: scale(0);
+}
+
+/* Confetti colors updated to match new palette */
+.confetti.c1 { width: 15px; height: 15px; background-color: #81e6d9; border-radius: 50%; top: -10%; left: 10%; animation-delay: 0.2s; }
+.confetti.c2 { width: 12px; height: 12px; background-color: #b8ffd2; border-radius: 0; top: -5%; left: 40%; animation-delay: 1.0s; }
+.confetti.c3 { width: 18px; height: 18px; background-color: #ffa82c; border-radius: 20%; top: -12%; left: 80%; animation-delay: 2.5s; }
+.confetti.c4 { width: 10px; height: 10px; background-color: #ff8ad8; border-radius: 50%; top: -8%; left: 25%; animation-delay: 0.8s; }
+.confetti.c5 { width: 20px; height: 20px; background-color: #af7aff; border-radius: 10%; top: -15%; left: 55%; animation-delay: 3.2s; }
+.confetti.c6 { width: 14px; height: 14px; background-color: #ff6f61; border-radius: 0; top: -7%; left: 70%; animation-delay: 1.5s; }
+.confetti.c7 { width: 16px; height: 16px; background-color: #b8ffd2; border-radius: 50%; top: -11%; left: 5%; animation-delay: 4.0s; }
+.confetti.c8 { width: 13px; height: 13px; background-color: #81e6d9; border-radius: 30%; top: -6%; left: 90%; animation-delay: 0.6s; }
+.confetti.c9 { width: 17px; height: 17px; background-color: #ffa82c; border-radius: 10%; top: -13%; left: 30%; animation-delay: 2.0s; }
+.confetti.c10 { width: 11px; height: 11px; background-color: #ff8ad8; border-radius: 50%; top: -9%; left: 65%; animation-delay: 3.5s; }
+.confetti.c11 { width: 19px; height: 19px; background-color: #af7aff; border-radius: 0; top: -14%; left: 15%; animation-delay: 0.4s; }
+.confetti.c12 { width: 10px; height: 10px; background-color: #ff6f61; border-radius: 50%; top: -4%; left: 85%; animation-delay: 2.8s; }
+.confetti.c13 { width: 15px; height: 15px; background-color: #81e6d9; border-radius: 20%; top: -10%; left: 50%; animation-delay: 1.8s; }
+.confetti.c14 { width: 12px; height: 12px; background-color: #b8ffd2; border-radius: 0; top: -7%; left: 5%; animation-delay: 4.5s; }
+.confetti.c15 { width: 18px; height: 18px; background-color: #ffa82c; border-radius: 50%; top: -16%; left: 75%; animation-delay: 0.9s; }
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+        transform: translateY(0px) rotate(30deg) scale(1);
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Text Fade-in Animation - Now with a subtle pulse after fading in */
+.fade-in-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInText 1s ease-out forwards, pulseText 2s infinite ease-in-out 3s; /* Pulse after 3s */
+}
+
+@keyframes fadeInText {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseText {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+
+/* Button Bounce Animation - Adjusted timing and intensity */
+.bounce {
+    animation: bounce 2.5s infinite ease-in-out; /* Slower, more graceful bounce */
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-8px); } /* Less height */
+    70% { transform: translateY(-4px); }
+}
+
+
+/* --- Memories Page Specific Styles --- */
+.memories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px; /* Slightly more space */
+    margin-top: 50px; /* More margin */
+    padding: 20px;
+}
+
+.memory-card {
+    background-color: var(--text-color-light);
+    border-radius: 15px; /* Slightly more rounded */
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out; /* Slower transition */
+    cursor: pointer;
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    animation: cardLoad 1s forwards cubic-bezier(0.2, 0.8, 0.2, 1); /* New animation */
+}
+
+/* Staggered animation for memory cards */
+.memories-grid .memory-card:nth-child(1) { animation-delay: 0.1s; }
+.memories-grid .memory-card:nth-child(2) { animation-delay: 0.2s; }
+.memories-grid .memory-card:nth-child(3) { animation-delay: 0.3s; }
+.memories-grid .memory-card:nth-child(4) { animation-delay: 0.4s; }
+.memories-grid .memory-card:nth-child(5) { animation-delay: 0.5s; }
+.memories-grid .memory-card:nth-child(6) { animation-delay: 0.6s; }
+/* Add more :nth-child rules if you have more images */
+
+/* New: Memory Card Load Animation (combines slide and scale) */
+@keyframes cardLoad {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.memory-card:hover {
+    transform: translateY(-15px) scale(1.05) rotateZ(2deg); /* More lift, scale, and slight rotation */
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3); /* Even stronger shadow */
+}
+
+.memory-card img {
+    width: 100%;
+    height: 280px; /* Slightly taller images */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease-in-out; /* Slower zoom */
+}
+
+.memory-card:hover img {
+    transform: scale(1.1); /* More pronounced zoom */
+}
+
+.memory-card .caption {
+    padding: 20px; /* More padding */
+    text-align: center; /* Center caption text */
+    background: linear-gradient(to top, rgba(255,255,255,0.9), rgba(255,255,255,0.7)); /* Subtle gradient background for caption */
+}
+
+.memory-card .caption h3 {
+    font-family: var(--font-body);
+    font-size: 1.5em; /* Slightly larger */
+    color: var(--text-color-dark); /* Use dark text for better contrast on caption */
+    /* Remove gradient for caption heading if it clashes */
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+    text-shadow: none;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.memory-card .caption p {
+    font-size: 1em; /* Slightly larger date text */
+    color: #555; /* Darker grey for dates */
+    margin: 0;
+}
+
+/* Slide in from top animation for headings on subsequent pages - Slight bounce */
+.slide-in-top {
+    opacity: 0;
+    transform: translateY(-50px);
+    animation: slideInTopBounce 1s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes slideInTopBounce {
+    0% { opacity: 0; transform: translateY(-50px); }
+    70% { opacity: 1; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Quotes Page Specific Styles --- */
+.quotes-section {
+    margin-top: 40px; /* More space */
+}
+
+blockquote {
+    /* Gradient background for blockquotes */
+    background: linear-gradient(135deg, var(--gradient-3-start), var(--gradient-2-end)); /* Using new vibrant gradients */
+    color: var(--text-color-light);
+    margin: 25px auto; /* More margin */
+    padding: 25px 35px; /* More padding */
+    border-left: 10px solid var(--gradient-1-end); /* Using a vibrant gradient color for border */
+    border-radius: 10px; /* Slightly more rounded */
+    font-size: 1.4em; /* Slightly larger font */
+    line-height: 1.9; /* More line height */
+    position: relative;
+    max-width: 750px; /* Wider quotes */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    font-family: var(--font-decorative);
+    font-style: italic;
+    opacity: 0;
+    transform: translateX(-80px) rotateY(-15deg); /* New initial state for animation */
+    animation: quoteReveal 1.2s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover transition */
+}
+
+/* New: Quote Hover Effect */
+blockquote:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Staggered animation for quotes */
+.fade-in-quote.delay-0 { animation-delay: 0.1s; }
+.fade-in-quote.delay-1 { animation-delay: 0.5s; }
+.fade-in-quote.delay-2 { animation-delay: 0.9s; }
+.fade-in-quote.delay-3 { animation-delay: 1.3s; }
+.fade-in-quote.delay-4 { animation-delay: 1.7s; }
+/* Add more delays for more quotes */
+
+/* New: Quote Reveal Animation */
+@keyframes quoteReveal {
+    to {
+        opacity: 1;
+        transform: translateX(0) rotateY(0deg);
+    }
+}
+
+blockquote cite {
+    display: block;
+    margin-top: 20px; /* More margin */
+    font-size: 0.9em; /* Slightly larger */
+    text-align: right;
+    color: rgba(255, 255, 255, 0.9); /* Brighter cite color */
+    font-style: normal;
+}
+
+.final-message {
+    font-size: 1.8em; /* Larger final message */
+    font-family: var(--font-heading);
+    /* Gradient text for final message */
+    background: linear-gradient(90deg, var(--gradient-1-end), var(--gradient-3-start));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback */
+    margin-top: 60px; /* More margin */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+    animation: fadeInText 1s ease-out forwards, heartbeat 1.5s infinite alternate 3s; /* Heartbeat effect */
+}
+
+/* New: Heartbeat animation for final message */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+
+/* Responsive Design - Adjusted values for larger scale */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.8em;
+    }
+
+    .container {
+        margin: 20px;
+        padding: 25px;
+    }
+
+    .cta-button {
+        padding: 15px 30px;
+        font-size: 1.1em;
+    }
+
+    .memories-grid {
+        gap: 25px;
+    }
+
+    .memory-card img {
+        height: 220px;
+    }
+
+    blockquote {
+        font-size: 1.2em;
+        padding: 20px 25px;
+    }
+
+    .final-message {
+        font-size: 1.4em;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.2em;
+        letter-spacing: 1px;
+    }
+
+    p {
+        font-size: 0.95em;
+    }
+
+    .cta-button {
+        width: 90%;
+        max-width: 280px;
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+
+    .memories-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .memory-card img {
+        height: 180px;
+    }
+
+    blockquote {
+        font-size: 1em;
+        padding: 15px 20px;
+        margin: 15px auto;
+    }
+
+    .final-message {
+        font-size: 1.2em;
+    }
+}
